@@ -399,6 +399,22 @@ const Storage = {
     },
 
     /**
+     * Get color preference
+     * @returns {string} Color ('purple', 'blue', 'green', 'pink', 'orange', 'red')
+     */
+    getColor() {
+        return localStorage.getItem('assignmentTracker_color') || 'purple';
+    },
+
+    /**
+     * Save color preference
+     * @param {string} color - Color to save
+     */
+    saveColor(color) {
+        localStorage.setItem('assignmentTracker_color', color);
+    },
+
+    /**
      * Export assignments as JSON
      * @returns {string} JSON string of assignments
      */

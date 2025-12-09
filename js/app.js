@@ -25,8 +25,9 @@ const app = {
         // Initialize UI module
         UI.init();
         
-        // Load theme preference
+        // Load theme and color preferences
         this.loadTheme();
+        this.loadColor();
         
         // Set up event listeners
         this.setupEventListeners();
@@ -119,6 +120,30 @@ const app = {
             this.toggleTheme();
         });
 
+        // Color picker
+        document.getElementById('colorPicker').addEventListener('click', () => {
+            this.openColorPicker();
+        });
+
+        document.getElementById('colorPickerClose').addEventListener('click', () => {
+            this.closeColorPicker();
+        });
+
+        // Close color picker on background click
+        document.getElementById('colorPickerModal').addEventListener('click', (e) => {
+            if (e.target.id === 'colorPickerModal') {
+                this.closeColorPicker();
+            }
+        });
+
+        // Color option buttons
+        document.querySelectorAll('.color-option').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const color = e.currentTarget.dataset.color;
+                this.changeColor(color);
+            });
+        });
+
         // Edit modal
         document.getElementById('editForm').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -196,6 +221,7 @@ const app = {
             if (e.key === 'Escape') {
                 UI.hideEditModal();
                 UI.hideManageCoursesModal();
+                this.closeColorPicker();
             }
         });
     },
@@ -596,6 +622,59 @@ const app = {
         // Update theme toggle icon
         const themeIcon = document.querySelector('.theme-icon');
         themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+    },
+
+    /**
+     * Load color preference
+     */
+    loadColor() {
+        const color = Storage.getColor();
+        document.documentElement.setAttribute('data-color', color);
+        this.updateColorActiveState(color);
+    },
+
+    /**
+     * Change color theme
+     * @param {string} color - Color to apply
+     */
+    changeColor(color) {
+        document.documentElement.setAttribute('data-color', color);
+        Storage.saveColor(color);
+        this.updateColorActiveState(color);
+        UI.showToast(`Color theme changed to ${color}!`, 'success');
+    },
+
+    /**
+     * Update active state of color buttons
+     * @param {string} activeColor - Currently active color
+     */
+    updateColorActiveState(activeColor) {
+        document.querySelectorAll('.color-option').forEach(button => {
+            if (button.dataset.color === activeColor) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+    },
+
+    /**
+     * Open color picker modal
+     */
+    openColorPicker() {
+        const modal = document.getElementById('colorPickerModal');
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        this.updateColorActiveState(Storage.getColor());
+    },
+
+    /**
+     * Close color picker modal
+     */
+    closeColorPicker() {
+        const modal = document.getElementById('colorPickerModal');
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
     },
 
     /**

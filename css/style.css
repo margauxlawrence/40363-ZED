@@ -4,7 +4,7 @@
    =================================== */
 
 :root {
-    /* Light Theme Colors */
+    /* Light Theme Colors - Purple (default) */
     --color-primary: #9333ea;
     --color-primary-dark: #7e22ce;
     --color-primary-light: #a855f7;
@@ -61,7 +61,7 @@
     --transition-slow: 300ms ease-in-out;
 }
 
-/* Dark Theme */
+/* Dark Theme - Purple */
 [data-theme="dark"] {
     --color-bg-main: #1e1b4b;
     --color-bg-card: #312e81;
@@ -78,6 +78,90 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+/* ===================================
+   COLOR THEMES
+   =================================== */
+
+/* Blue Theme */
+[data-color="blue"] {
+    --color-primary: #3b82f6;
+    --color-primary-dark: #2563eb;
+    --color-primary-light: #60a5fa;
+    
+    --color-bg-main: #eff6ff;
+    --color-bg-hover: #dbeafe;
+}
+
+[data-color="blue"][data-theme="dark"] {
+    --color-bg-main: #1e3a5f;
+    --color-bg-card: #1e40af;
+    --color-bg-hover: #2563eb;
+}
+
+/* Green Theme */
+[data-color="green"] {
+    --color-primary: #10b981;
+    --color-primary-dark: #059669;
+    --color-primary-light: #34d399;
+    
+    --color-bg-main: #ecfdf5;
+    --color-bg-hover: #d1fae5;
+}
+
+[data-color="green"][data-theme="dark"] {
+    --color-bg-main: #064e3b;
+    --color-bg-card: #065f46;
+    --color-bg-hover: #047857;
+}
+
+/* Pink Theme */
+[data-color="pink"] {
+    --color-primary: #ec4899;
+    --color-primary-dark: #db2777;
+    --color-primary-light: #f472b6;
+    
+    --color-bg-main: #fdf2f8;
+    --color-bg-hover: #fce7f3;
+}
+
+[data-color="pink"][data-theme="dark"] {
+    --color-bg-main: #831843;
+    --color-bg-card: #9f1239;
+    --color-bg-hover: #be123c;
+}
+
+/* Orange Theme */
+[data-color="orange"] {
+    --color-primary: #f97316;
+    --color-primary-dark: #ea580c;
+    --color-primary-light: #fb923c;
+    
+    --color-bg-main: #fff7ed;
+    --color-bg-hover: #ffedd5;
+}
+
+[data-color="orange"][data-theme="dark"] {
+    --color-bg-main: #7c2d12;
+    --color-bg-card: #9a3412;
+    --color-bg-hover: #c2410c;
+}
+
+/* Red Theme */
+[data-color="red"] {
+    --color-primary: #ef4444;
+    --color-primary-dark: #dc2626;
+    --color-primary-light: #f87171;
+    
+    --color-bg-main: #fef2f2;
+    --color-bg-hover: #fee2e2;
+}
+
+[data-color="red"][data-theme="dark"] {
+    --color-bg-main: #7f1d1d;
+    --color-bg-card: #991b1b;
+    --color-bg-hover: #b91c1c;
 }
 
 /* ===================================
@@ -1107,4 +1191,94 @@ p {
     text-align: center;
     color: var(--color-text-tertiary);
     font-style: italic;
+}
+
+/* ===================================
+   COLOR PICKER
+   =================================== */
+
+.color-picker-content {
+    padding: var(--spacing-md) 0;
+}
+
+.color-picker-content p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
+.color-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.color-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    background-color: var(--color-bg-main);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+}
+
+.color-option:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+.color-option.active {
+    border-color: var(--color-primary);
+    border-width: 3px;
+    background-color: var(--color-bg-hover);
+}
+
+.color-preview {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-base);
+}
+
+.color-option:hover .color-preview {
+    transform: scale(1.1);
+}
+
+/* Color Previews */
+.purple-preview {
+    background: linear-gradient(135deg, #9333ea 0%, #c084fc 100%);
+}
+
+.blue-preview {
+    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+}
+
+.green-preview {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+}
+
+.pink-preview {
+    background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+}
+
+.orange-preview {
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+}
+
+.red-preview {
+    background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+}
+
+@media (max-width: 768px) {
+    .color-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

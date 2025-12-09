@@ -17,6 +17,9 @@
             <div class="header-content">
                 <h1 class="logo">📚 Assignment Tracker</h1>
                 <nav class="nav">
+                    <button class="btn btn-secondary" id="colorPicker" aria-label="Choose color theme">
+                        🎨
+                    </button>
                     <button class="btn btn-secondary" id="themeToggle" aria-label="Toggle theme">
                         <span class="theme-icon">🌙</span>
                     </button>
@@ -182,6 +185,51 @@
 
     <!-- Toast Notification -->
     <div id="toast" class="toast" role="alert"></div>
+
+    <!-- Color Picker Modal -->
+    <div id="colorPickerModal" class="modal" role="dialog" aria-labelledby="colorPickerTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="colorPickerTitle">Choose Your Color Theme 🎨</h2>
+                <button class="modal-close" id="colorPickerClose" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="color-picker-content">
+                <p>Select a color scheme for your assignment tracker:</p>
+                
+                <div class="color-options">
+                    <button class="color-option" data-color="purple" aria-label="Purple theme">
+                        <div class="color-preview purple-preview"></div>
+                        <span>Purple</span>
+                    </button>
+                    
+                    <button class="color-option" data-color="blue" aria-label="Blue theme">
+                        <div class="color-preview blue-preview"></div>
+                        <span>Blue</span>
+                    </button>
+                    
+                    <button class="color-option" data-color="green" aria-label="Green theme">
+                        <div class="color-preview green-preview"></div>
+                        <span>Green</span>
+                    </button>
+                    
+                    <button class="color-option" data-color="pink" aria-label="Pink theme">
+                        <div class="color-preview pink-preview"></div>
+                        <span>Pink</span>
+                    </button>
+                    
+                    <button class="color-option" data-color="orange" aria-label="Orange theme">
+                        <div class="color-preview orange-preview"></div>
+                        <span>Orange</span>
+                    </button>
+                    
+                    <button class="color-option" data-color="red" aria-label="Red theme">
+                        <div class="color-preview red-preview"></div>
+                        <span>Red</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Welcome Modal -->
     <div id="welcomeModal" class="modal" role="dialog" aria-labelledby="welcomeTitle" aria-hidden="true">
