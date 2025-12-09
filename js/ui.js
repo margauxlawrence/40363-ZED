@@ -132,9 +132,6 @@ const UI = {
                     <span>${formattedDate}</span>
                     ${daysUntil ? `<span>(${daysUntil})</span>` : ''}
                 </div>
-                <span class="badge badge-priority-${assignment.priority}">
-                    ${assignment.priority} priority
-                </span>
                 ${assignment.completed ? 
                     '<span class="badge badge-status">Completed</span>' : 
                     (isOverdue ? '<span class="badge badge-overdue">Overdue</span>' : '')
@@ -354,7 +351,6 @@ const UI = {
         document.getElementById('editName').value = assignment.name;
         document.getElementById('editCourse').value = assignment.course;
         document.getElementById('editDueDate').value = this.formatDateForInput(assignment.dueDate);
-        document.getElementById('editPriority').value = assignment.priority;
         document.getElementById('editNotes').value = assignment.notes || '';
         
         // Show modal

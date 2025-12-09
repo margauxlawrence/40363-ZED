@@ -234,7 +234,6 @@ const app = {
         const name = document.getElementById('assignmentName').value.trim();
         const course = document.getElementById('courseName').value.trim();
         const dueDate = document.getElementById('dueDate').value;
-        const priority = document.getElementById('priority').value;
         const notes = document.getElementById('notes').value.trim();
 
         // Validate
@@ -248,7 +247,7 @@ const app = {
             name,
             course,
             dueDate: new Date(dueDate),
-            priority,
+            priority: 'medium', // Default priority for storage
             notes
         };
 
@@ -396,7 +395,6 @@ const app = {
         const name = document.getElementById('editName').value.trim();
         const course = document.getElementById('editCourse').value.trim();
         const dueDate = document.getElementById('editDueDate').value;
-        const priority = document.getElementById('editPriority').value;
         const notes = document.getElementById('editNotes').value.trim();
 
         // Validate
@@ -410,7 +408,6 @@ const app = {
             name,
             course,
             dueDate: new Date(dueDate),
-            priority,
             notes
         });
 

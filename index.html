@@ -57,31 +57,21 @@
                 <div class="add-assignment-card">
                     <h2>Add Assignment Manually</h2>
                     <form id="assignmentForm" class="assignment-form">
+                        <div class="form-group">
+                            <label for="assignmentName">Assignment Name*</label>
+                            <input type="text" id="assignmentName" required placeholder="e.g., Essay on Climate Change">
+                        </div>
+                        
                         <div class="form-row">
-                            <div class="form-group">
-                                <label for="assignmentName">Assignment Name*</label>
-                                <input type="text" id="assignmentName" required placeholder="e.g., Essay on Climate Change">
-                            </div>
                             <div class="form-group">
                                 <label for="courseName">Course*</label>
                                 <select id="courseName" required>
                                     <option value="">Select a course...</option>
                                 </select>
                             </div>
-                        </div>
-                        
-                        <div class="form-row">
                             <div class="form-group">
                                 <label for="dueDate">Due Date*</label>
                                 <input type="date" id="dueDate" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="priority">Priority</label>
-                                <select id="priority">
-                                    <option value="low">Low</option>
-                                    <option value="medium" selected>Medium</option>
-                                    <option value="high">High</option>
-                                </select>
                             </div>
                         </div>
                         
@@ -298,31 +288,21 @@
             <form id="editForm" class="assignment-form">
                 <input type="hidden" id="editId">
                 
+                <div class="form-group">
+                    <label for="editName">Assignment Name*</label>
+                    <input type="text" id="editName" required>
+                </div>
+                
                 <div class="form-row">
-                    <div class="form-group">
-                        <label for="editName">Assignment Name*</label>
-                        <input type="text" id="editName" required>
-                    </div>
                     <div class="form-group">
                         <label for="editCourse">Course*</label>
                         <select id="editCourse" required>
                             <option value="">Select a course...</option>
                         </select>
                     </div>
-                </div>
-                
-                <div class="form-row">
                     <div class="form-group">
                         <label for="editDueDate">Due Date*</label>
                         <input type="date" id="editDueDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editPriority">Priority</label>
-                        <select id="editPriority">
-                            <option value="low">Low</option>
-                            <option value="medium">Medium</option>
-                            <option value="high">High</option>
-                        </select>
                     </div>
                 </div>
                 
