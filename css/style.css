@@ -14,9 +14,9 @@
     --color-danger: #ef4444;
     --color-warning: #f59e0b;
     
-    --color-bg-main: #f8fafc;
+    --color-bg-main: #faf5ff;
     --color-bg-card: #ffffff;
-    --color-bg-hover: #f1f5f9;
+    --color-bg-hover: #f3e8ff;
     
     --color-text-primary: #0f172a;
     --color-text-secondary: #64748b;
@@ -63,9 +63,9 @@
 
 /* Dark Theme */
 [data-theme="dark"] {
-    --color-bg-main: #0f172a;
-    --color-bg-card: #1e293b;
-    --color-bg-hover: #334155;
+    --color-bg-main: #1e1b4b;
+    --color-bg-card: #312e81;
+    --color-bg-hover: #3730a3;
     
     --color-text-primary: #f1f5f9;
     --color-text-secondary: #cbd5e1;
