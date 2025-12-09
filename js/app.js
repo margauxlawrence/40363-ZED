@@ -34,6 +34,14 @@ const app = {
         // Set minimum date for date inputs
         UI.setMinDate();
         
+        // Check if first visit
+        if (Storage.isFirstVisit()) {
+            UI.showWelcomeModal();
+        } else {
+            // Load existing courses and render
+            this.updateCourseDropdowns();
+        }
+        
         // Initial render
         this.refreshDisplay();
         
@@ -132,11 +140,62 @@ const app = {
             }
         });
 
+        // Manage courses button
+        document.getElementById('manageCourses').addEventListener('click', () => {
+            this.openManageCourses();
+        });
+
+        // Welcome modal - Add course
+        document.getElementById('addCourseBtn').addEventListener('click', () => {
+            this.addCourseInSetup();
+        });
+
+        document.getElementById('courseInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.addCourseInSetup();
+            }
+        });
+
+        // Welcome modal - Finish setup
+        document.getElementById('finishSetup').addEventListener('click', () => {
+            this.finishSetup();
+        });
+
+        // Manage courses modal - Add course
+        document.getElementById('addManageCourseBtn').addEventListener('click', () => {
+            this.addCourseInManage();
+        });
+
+        document.getElementById('manageCourseInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.addCourseInManage();
+            }
+        });
+
+        // Manage courses modal - Close
+        document.getElementById('manageCoursesClose').addEventListener('click', () => {
+            UI.hideManageCoursesModal();
+        });
+
+        document.getElementById('closeManageCourses').addEventListener('click', () => {
+            UI.hideManageCoursesModal();
+        });
+
+        // Close manage courses modal on background click
+        document.getElementById('manageCoursesModal').addEventListener('click', (e) => {
+            if (e.target.id === 'manageCoursesModal') {
+                UI.hideManageCoursesModal();
+            }
+        });
+
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
-            // Escape to close modal
+            // Escape to close modals
             if (e.key === 'Escape') {
                 UI.hideEditModal();
+                UI.hideManageCoursesModal();
             }
         });
     },
@@ -398,6 +457,117 @@ const app = {
         // Update course filter
         const courses = Storage.getCourses();
         UI.updateCourseFilter(courses);
+    },
+
+    /**
+     * Update all course dropdowns
+     */
+    updateCourseDropdowns() {
+        const courses = Storage.getSavedCourses();
+        UI.updateCourseDropdowns(courses);
+        UI.updateCourseFilter(courses);
+    },
+
+    /**
+     * Add course in welcome setup
+     */
+    addCourseInSetup() {
+        const input = document.getElementById('courseInput');
+        const courseName = input.value.trim();
+        
+        if (!courseName) {
+            UI.showToast('Please enter a course name', 'error');
+            return;
+        }
+        
+        const success = Storage.addCourse(courseName);
+        
+        if (success) {
+            input.value = '';
+            const courses = Storage.getSavedCourses();
+            UI.renderCoursesList(courses);
+            input.focus();
+        } else {
+            UI.showToast('Course already exists or invalid', 'error');
+        }
+    },
+
+    /**
+     * Remove course from welcome setup
+     * @param {string} courseName - Course to remove
+     */
+    removeCourseFromSetup(courseName) {
+        Storage.removeCourse(courseName);
+        const courses = Storage.getSavedCourses();
+        UI.renderCoursesList(courses);
+    },
+
+    /**
+     * Finish welcome setup
+     */
+    finishSetup() {
+        const courses = Storage.getSavedCourses();
+        
+        if (courses.length === 0) {
+            UI.showToast('Please add at least one course', 'error');
+            return;
+        }
+        
+        Storage.markVisited();
+        UI.hideWelcomeModal();
+        this.updateCourseDropdowns();
+        UI.showToast('Welcome! Start adding your assignments', 'success');
+    },
+
+    /**
+     * Open manage courses modal
+     */
+    openManageCourses() {
+        const courses = Storage.getSavedCourses();
+        UI.renderManageCoursesList(courses);
+        UI.showManageCoursesModal();
+    },
+
+    /**
+     * Add course in manage modal
+     */
+    addCourseInManage() {
+        const input = document.getElementById('manageCourseInput');
+        const courseName = input.value.trim();
+        
+        if (!courseName) {
+            UI.showToast('Please enter a course name', 'error');
+            return;
+        }
+        
+        const success = Storage.addCourse(courseName);
+        
+        if (success) {
+            input.value = '';
+            const courses = Storage.getSavedCourses();
+            UI.renderManageCoursesList(courses);
+            this.updateCourseDropdowns();
+            UI.showToast('Course added!', 'success');
+            input.focus();
+        } else {
+            UI.showToast('Course already exists', 'error');
+        }
+    },
+
+    /**
+     * Remove course from manage modal
+     * @param {string} courseName - Course to remove
+     */
+    removeCourseFromManage(courseName) {
+        const confirmed = UI.confirm(`Remove "${courseName}"? Existing assignments with this course will not be affected.`);
+        
+        if (!confirmed) return;
+        
+        Storage.removeCourse(courseName);
+        const courses = Storage.getSavedCourses();
+        UI.renderManageCoursesList(courses);
+        this.updateCourseDropdowns();
+        UI.showToast('Course removed', 'success');
     },
 
     /**

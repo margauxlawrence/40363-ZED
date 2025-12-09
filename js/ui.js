@@ -191,6 +191,136 @@ const UI = {
     },
 
     /**
+     * Update course dropdowns in forms
+     * @param {Array} courses - Array of course names
+     */
+    updateCourseDropdowns(courses) {
+        const courseNameSelect = document.getElementById('courseName');
+        const editCourseSelect = document.getElementById('editCourse');
+        
+        // Update add form dropdown
+        if (courseNameSelect) {
+            const currentValue = courseNameSelect.value;
+            courseNameSelect.innerHTML = '<option value="">Select a course...</option>';
+            
+            courses.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course;
+                option.textContent = course;
+                courseNameSelect.appendChild(option);
+            });
+            
+            if (courses.includes(currentValue)) {
+                courseNameSelect.value = currentValue;
+            }
+        }
+        
+        // Update edit form dropdown
+        if (editCourseSelect) {
+            const currentValue = editCourseSelect.value;
+            editCourseSelect.innerHTML = '<option value="">Select a course...</option>';
+            
+            courses.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course;
+                option.textContent = course;
+                editCourseSelect.appendChild(option);
+            });
+            
+            if (courses.includes(currentValue)) {
+                editCourseSelect.value = currentValue;
+            }
+        }
+    },
+
+    /**
+     * Show welcome modal
+     */
+    showWelcomeModal() {
+        const modal = document.getElementById('welcomeModal');
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.getElementById('courseInput').focus();
+    },
+
+    /**
+     * Hide welcome modal
+     */
+    hideWelcomeModal() {
+        const modal = document.getElementById('welcomeModal');
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+    },
+
+    /**
+     * Show manage courses modal
+     */
+    showManageCoursesModal() {
+        const modal = document.getElementById('manageCoursesModal');
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.getElementById('manageCourseInput').focus();
+    },
+
+    /**
+     * Hide manage courses modal
+     */
+    hideManageCoursesModal() {
+        const modal = document.getElementById('manageCoursesModal');
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+    },
+
+    /**
+     * Render courses list in welcome modal
+     * @param {Array} courses - Array of course names
+     */
+    renderCoursesList(courses) {
+        const container = document.getElementById('coursesList');
+        container.innerHTML = '';
+        
+        if (courses.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: var(--color-text-tertiary); padding: var(--spacing-lg);">No courses added yet. Add at least one course to continue.</p>';
+            return;
+        }
+        
+        courses.forEach(course => {
+            const item = document.createElement('div');
+            item.className = 'course-item';
+            item.innerHTML = `
+                <span class="course-name">${this.escapeHtml(course)}</span>
+                <button class="remove-course" onclick="app.removeCourseFromSetup('${this.escapeHtml(course)}')" 
+                        aria-label="Remove ${this.escapeHtml(course)}">×</button>
+            `;
+            container.appendChild(item);
+        });
+    },
+
+    /**
+     * Render courses list in manage modal
+     * @param {Array} courses - Array of course names
+     */
+    renderManageCoursesList(courses) {
+        const container = document.getElementById('manageCoursesListContainer');
+        container.innerHTML = '';
+        
+        if (courses.length === 0) {
+            return; // CSS will show the empty message
+        }
+        
+        courses.forEach(course => {
+            const item = document.createElement('div');
+            item.className = 'course-item';
+            item.innerHTML = `
+                <span class="course-name">${this.escapeHtml(course)}</span>
+                <button class="remove-course" onclick="app.removeCourseFromManage('${this.escapeHtml(course)}')" 
+                        aria-label="Remove ${this.escapeHtml(course)}">×</button>
+            `;
+            container.appendChild(item);
+        });
+    },
+
+    /**
      * Show toast notification
      * @param {string} message - Message to display
      * @param {string} type - Toast type ('success', 'error', 'warning')

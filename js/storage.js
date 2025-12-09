@@ -12,7 +12,9 @@ const Storage = {
     KEYS: {
         ASSIGNMENTS: 'assignmentTracker_assignments',
         THEME: 'assignmentTracker_theme',
-        SETTINGS: 'assignmentTracker_settings'
+        SETTINGS: 'assignmentTracker_settings',
+        COURSES: 'assignmentTracker_courses',
+        FIRST_VISIT: 'assignmentTracker_firstVisit'
     },
 
     /**
@@ -226,10 +228,6 @@ const Storage = {
             case 'dueDate':
                 sorted.sort((a, b) => a.dueDate - b.dueDate);
                 break;
-            case 'priority':
-                const priorityOrder = { high: 0, medium: 1, low: 2 };
-                sorted.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
-                break;
             case 'course':
                 sorted.sort((a, b) => a.course.localeCompare(b.course));
                 break;
@@ -249,6 +247,88 @@ const Storage = {
         const assignments = this.getAssignments();
         const courses = [...new Set(assignments.map(a => a.course))];
         return courses.sort();
+    },
+
+    /**
+     * Get saved course list
+     * @returns {Array} Array of course names
+     */
+    getSavedCourses() {
+        try {
+            const data = localStorage.getItem(this.KEYS.COURSES);
+            return data ? JSON.parse(data) : [];
+        } catch (error) {
+            console.error('Error reading courses:', error);
+            return [];
+        }
+    },
+
+    /**
+     * Save course list
+     * @param {Array} courses - Array of course names
+     * @returns {boolean} Success status
+     */
+    saveCourses(courses) {
+        try {
+            localStorage.setItem(this.KEYS.COURSES, JSON.stringify(courses));
+            return true;
+        } catch (error) {
+            console.error('Error saving courses:', error);
+            return false;
+        }
+    },
+
+    /**
+     * Add a course
+     * @param {string} courseName - Course name to add
+     * @returns {boolean} Success status
+     */
+    addCourse(courseName) {
+        try {
+            const courses = this.getSavedCourses();
+            const trimmed = courseName.trim();
+            
+            if (!trimmed) return false;
+            if (courses.includes(trimmed)) return false; // Already exists
+            
+            courses.push(trimmed);
+            courses.sort();
+            return this.saveCourses(courses);
+        } catch (error) {
+            console.error('Error adding course:', error);
+            return false;
+        }
+    },
+
+    /**
+     * Remove a course
+     * @param {string} courseName - Course name to remove
+     * @returns {boolean} Success status
+     */
+    removeCourse(courseName) {
+        try {
+            const courses = this.getSavedCourses();
+            const filtered = courses.filter(c => c !== courseName);
+            return this.saveCourses(filtered);
+        } catch (error) {
+            console.error('Error removing course:', error);
+            return false;
+        }
+    },
+
+    /**
+     * Check if this is the first visit
+     * @returns {boolean} True if first visit
+     */
+    isFirstVisit() {
+        return !localStorage.getItem(this.KEYS.FIRST_VISIT);
+    },
+
+    /**
+     * Mark that the user has visited
+     */
+    markVisited() {
+        localStorage.setItem(this.KEYS.FIRST_VISIT, 'true');
     },
 
     /**
