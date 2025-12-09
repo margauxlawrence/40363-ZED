@@ -3,9 +3,8 @@
 ## Project Overview
 **Project Name**: Assignment Tracker with Syllabus Parsing  
 **Student**: Margaux Lawrence  
-**Course**: COMM 221 - Project Zed  
+**Course**: Project Zed  
 **Date**: December 2025  
-**Duration**: [Your timeline here]
 
 ---
 
