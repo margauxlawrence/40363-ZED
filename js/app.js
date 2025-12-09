@@ -480,9 +480,10 @@ const app = {
         const stats = Storage.getStatistics();
         UI.updateStatistics(stats);
         
-        // Update course filter
+        // Update course filter and legend
         const courses = Storage.getCourses();
         UI.updateCourseFilter(courses);
+        UI.renderCourseLegend(courses);
     },
 
     /**

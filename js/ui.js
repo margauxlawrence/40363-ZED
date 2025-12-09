@@ -91,6 +91,10 @@ const UI = {
         }
         
         card.classList.add(`priority-${assignment.priority}`);
+        
+        // Add course color
+        const courseColor = this.getCourseColor(assignment.course);
+        card.style.borderLeftColor = courseColor;
 
         // Format due date
         const dueDate = new Date(assignment.dueDate);
@@ -119,8 +123,8 @@ const UI = {
             </div>
             
             <div class="assignment-meta">
-                <div class="meta-item">
-                    <span>📚</span>
+                <div class="meta-item course-indicator">
+                    <span class="course-color-dot" style="background-color: ${courseColor}"></span>
                     <span>${this.escapeHtml(assignment.course)}</span>
                 </div>
                 <div class="meta-item">
@@ -502,6 +506,67 @@ const UI = {
         const today = this.formatDateForInput(new Date());
         document.getElementById('dueDate').setAttribute('min', today);
         document.getElementById('editDueDate').setAttribute('min', today);
+    },
+
+    /**
+     * Get a consistent color for a course
+     * @param {string} courseName - Name of the course
+     * @returns {string} Hex color code
+     */
+    getCourseColor(courseName) {
+        // Color palette for courses
+        const colors = [
+            '#8b5cf6', // Violet
+            '#06b6d4', // Cyan
+            '#10b981', // Green
+            '#f59e0b', // Amber
+            '#ef4444', // Red
+            '#ec4899', // Pink
+            '#6366f1', // Indigo
+            '#14b8a6', // Teal
+            '#f97316', // Orange
+            '#84cc16', // Lime
+            '#a855f7', // Purple
+            '#3b82f6', // Blue
+            '#eab308', // Yellow
+            '#22c55e', // Green
+            '#f43f5e', // Rose
+            '#0ea5e9', // Sky
+        ];
+
+        // Generate a consistent index based on course name
+        let hash = 0;
+        for (let i = 0; i < courseName.length; i++) {
+            hash = courseName.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        
+        const index = Math.abs(hash) % colors.length;
+        return colors[index];
+    },
+
+    /**
+     * Render course color legend
+     * @param {Array} courses - Array of course names
+     */
+    renderCourseLegend(courses) {
+        // Only render if there are multiple courses
+        if (courses.length <= 1) return;
+
+        const legendContainer = document.getElementById('courseLegend');
+        if (!legendContainer) return;
+
+        legendContainer.innerHTML = '';
+
+        courses.forEach(course => {
+            const color = this.getCourseColor(course);
+            const legendItem = document.createElement('div');
+            legendItem.className = 'legend-item';
+            legendItem.innerHTML = `
+                <span class="legend-color" style="background-color: ${color}"></span>
+                <span class="legend-label">${this.escapeHtml(course)}</span>
+            `;
+            legendContainer.appendChild(legendItem);
+        });
     }
 };
 
