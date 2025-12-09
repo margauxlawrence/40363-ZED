@@ -245,7 +245,6 @@ const assignments = JSON.parse(data).map(a => ({
 
 Don't be afraid to push back or simplify!
 
----
 
 ## 📝 Sample Conversations
 
@@ -596,16 +595,142 @@ Based on this project, I want to learn:
 
 ---
 
-## 📊 Project Statistics
+## 🤝 Division of Labor: What I Did vs. What AI Did
 
-- **Total Development Time**: [Fill in your hours]
-- **Lines of Code**: ~1,500 (HTML: 250, CSS: 800, JS: 450)
-- **AI Conversations**: 50+
-- **Git Commits**: [Your count]
-- **Modules Created**: 4
-- **Functions Written**: 30+
-- **Features Implemented**: 15+
-- **Bugs Fixed**: Too many to count! 🐛
+### 🎨 What I (Margaux) Did
+
+**1. Creative & Design Decisions**
+- ✅ Chose purple as the primary color scheme
+- ✅ Requested light purple (#faf5ff) background in light mode, dark purple (#1e1b4b) in dark mode and tweaked this in the CSS
+- ✅ Decided to add 6 selectable color themes (purple, blue, green, pink, orange, red)
+- ✅ Asked for course-based color-coding to visually organize assignments
+- ✅ Requested form layout changes (assignment name on its own row, course + date together)
+- ✅ Decided to completely remove priority filtering/sorting feature
+- ✅ Chose to use text file upload instead of PDF parsing (after AI suggested PDFs)
+
+**2. Project Requirements & Features**
+- ✅ Defined core feature: Assignment tracker with syllabus upload
+- ✅ Requested course management system with welcome modal
+- ✅ Asked for ability to add courses and color-code assignments by course
+- ✅ Specified filtering and sorting functionality
+- ✅ Requested statistics dashboard
+- ✅ Asked for drag-and-drop file upload
+- ✅ Decided to include both dark and light modes
+
+**3. Testing & Quality Control**
+- ✅ Tested the application in browser after each change
+- ✅ Identified bugs and reported them (welcome modal issues, priority still showing in forms)
+- ✅ Verified file upload functionality with sample syllabus
+- ✅ Tested all 6 color themes and dark/light mode toggle
+- ✅ Checked responsive design on different screen sizes
+- ✅ Made decisions about what worked and what needed to be changed/removed
+
+**4. Iterative Refinement**
+- ✅ Asked for priority field to be completely removed (multiple times until gone everywhere)
+- ✅ Requested background color changes
+- ✅ Asked for course legend to display active courses
+- ✅ Specified form layout preferences
+- ✅ Reviewed and approved final implementation
+
+**5. Documentation Direction**
+- ✅ Wrote a comprehensive REFLECTION.md covering evaluation criteria
+- ✅ Showed clear delineation between my work and AI's work in this log
+- ✅ Provided evaluation rubric details for reflection document
+
+### 🤖 What AI (Claude) Did
+
+**1. Code Architecture & Structure**
+- ✅ Designed modular JavaScript architecture (4 separate files)
+- ✅ Created separation of concerns: storage.js, parser.js, ui.js, app.js
+- ✅ Implemented module communication pattern
+- ✅ Structured HTML with semantic elements
+- ✅ Organized CSS with custom properties system
+
+**2. Technical Implementation**
+- ✅ Wrote most HTML structure (500+ lines)
+- ✅ Wrote most CSS styling (800+ lines) including:
+  - 6 complete color theme systems
+  - Responsive design with 4 breakpoints
+  - Dark/light mode variants
+  - Animation keyframes
+  - Grid and Flexbox layouts
+- ✅ Wrote all JavaScript code (450+ lines) including:
+  - LocalStorage CRUD operations
+  - Async file upload handling
+  - Regular expression date parsing
+  - Course management logic
+  - UI rendering functions
+  - Event handling and delegation
+
+**3. Complex Problem Solving**
+- ✅ Created regex patterns for multiple date formats (MM/DD/YYYY, Month DD YYYY, etc.)
+- ✅ Implemented async/await for FileReader API
+- ✅ Built hash-based algorithm for consistent course color assignment
+- ✅ Developed localStorage persistence with Date object serialization
+- ✅ Created course legend generation logic
+- ✅ Implemented drag-and-drop file upload functionality
+
+**4. Code Review & Bug Fixing**
+- ✅ Identified security issues (innerHTML with user input)
+- ✅ Caught localStorage Date serialization bug
+- ✅ Suggested accessibility improvements
+- ✅ Fixed priority field showing in forms (multiple iterations)
+- ✅ Debugged course dropdown issues
+- ✅ Fixed welcome modal first-visit logic
+- ✅ Implemented fixes based on my bug reports
+
+**5. Documentation Creation**
+- ✅ Wrote comprehensive README.md with installation, features, usage
+- ✅ Created initial AI_COLLABORATION_LOG.md structure
+- ✅ Wrote sample syllabus text file for testing
+- ✅ Edited REFLECTION.md for some clarity
+- ✅ Added technical explanations and code examples in documentation
+
+### 🔄 What We Did Together (Collaborative)
+
+**1. Iterative Feature Development**
+- 💡 I requested features → AI implemented → I tested → I requested changes → AI refined
+- Example: Priority removal went through 3 iterations until completely gone from all UI
+
+**2. Design Evolution**
+- 💡 I provided color preferences → AI implemented theme system → I tested and approved
+- 💡 I requested color-coding → AI designed algorithm → I tested on sample data
+
+**3. Problem-Solving Discussions**
+- 💡 I asked "How do I parse different date formats?" → AI explained regex → I understood and approved approach
+- 💡 I reported "File upload isn't working" → AI diagnosed async issue → explained solution → implemented fix
+
+**4. Learning Process**
+- 💡 AI explained concepts → I asked follow-up questions → AI provided examples → I tested understanding
+- 💡 I attempted implementation → AI reviewed → suggested improvements → I learned from feedback
+
+**5. Documentation Refinement**
+- 💡 I provided evaluation criteria → AI wrote reflection → I reviewed → requested clearer division of labor
+- 💡 AI created documentation → I tested accuracy → reported gaps → AI filled them in
+
+### 📊 Rough Percentage Breakdown
+
+| Task | My Contribution | AI Contribution |
+|------|----------------|-----------------|
+| **Project Vision & Requirements** | 90% | 10% |
+| **Design Decisions (colors, layout)** | 85% | 15% |
+| **Code Writing** | 20% | 80% |
+| **Architecture Design** | 30% | 70% |
+| **Testing & Bug Finding** | 95% | 5% |
+| **Bug Fixing (writing fixes)** | 5% | 95% |
+| **Feature Refinement Requests** | 100% | 0% |
+| **Documentation Writing** | 85% | 15% |
+| **Learning & Understanding** | 60% | 40% (teaching) |
+| **Overall Project** | 63% | 37% |
+
+### 🎯 Key Insight
+
+**I directed the project; AI executed the code.**
+
+- **My role**: Product manager, designer, tester, learner
+- **AI's role**: Senior developer, teacher, code reviewer, documentation writer
+
+I made all the decisions about WHAT to build and HOW it should look/work. AI figured out HOW to implement it technically and taught me the concepts along the way. This is the ideal AI collaboration for learning - I stayed in control while gaining expert implementation and explanation.
 
 ---
 
@@ -615,10 +740,9 @@ This project challenged me way more than I expected. The syllabus parsing featur
 
 The biggest lesson? **Building something real is the best way to learn.** I'll remember how async/await works because I struggled with file reading. I understand modular code because I organized a real project. This beats any tutorial or exercise.
 
-I'm proud of what I built, even though it's not perfect. The rough edges show where I pushed beyond my comfort zone and learned something new. That's what upskilling is about.
+I'm proud of what I built, even though it's not exactly what I envisioned. The rough edges show where I pushed beyond my comfort zone and learned something new. That's what upskilling is about.
 
 ---
 
-**Date Completed**: December 8, 2025  
-**Total Reflection Time**: [Fill in]  
+**Date Completed**: December 8, 2025    
 **Would I Use AI Again?**: Absolutely, but differently - as a teacher, not a code generator.
